@@ -34,17 +34,21 @@ namespace Spline.Test
 
 				var settings = new ZedGHelper.Settings();
 				settings.Type = SymbolType.Circle;
-				ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Open)));
+                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Open)), false);
+                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Close)), false);
+                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.MaxPrice)), false);
+                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.MinPrice)), false);
+                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Value)), true);
 
-				settings.GrafikColor = Color.Red;
-				settings.Type = SymbolType.Diamond;
-				var ys = BSpline.SplinePoints(set.Select(o => o.Open).ToArray());
-				ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => (double)o.DateTime.Ticks).ToArray(), ys);
+                settings.GrafikColor = Color.Red;
+                settings.Type = SymbolType.Diamond;
+                var ys = BSpline.SplinePoints(set.Select(o => o.Open).ToArray());
+                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => (double)o.DateTime.Ticks).ToArray(), ys, false);
 
-				settings.GrafikColor = Color.Green;
-				settings.Type = SymbolType.Square;
-				ys = BSpline.SplinePoints(set.Select(o => o.Open).ToArray(), 10);
-				ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => (double)o.DateTime.Ticks).ToArray(), ys);
+                settings.GrafikColor = Color.Green;
+                settings.Type = SymbolType.Square;
+                ys = BSpline.SplinePoints(set.Select(o => o.Open).ToArray(), 10);
+                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => (double)o.DateTime.Ticks).ToArray(), ys, false);
 			}
 		}
 	}
