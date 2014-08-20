@@ -93,6 +93,10 @@
       <Project>{d69bf0b9-7fa0-4c76-89bf-e3d5c96235dc}</Project>
       <Name>Spline.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Spline.Interfaces\Spline.Interfaces.csproj">
+      <Project>{c9e302f9-1431-433e-9551-629bccbfe037}</Project>
+      <Name>Spline.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

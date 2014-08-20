@@ -1,6 +1,6 @@
 using System;
 
-namespace Spline.Core
+namespace Spline.Core.KOA
 {
 	public class BSpline
 	{
@@ -22,7 +22,7 @@ namespace Spline.Core
 		{
 			var buf = new double[points.Length];
 			int k = 0;
-			buf[0] = SplinePart(points[k++], points[k++], points[k++], points[k++], true);
+			buf[0] = SplinePart(points[k++], points[k++], points[k++], points[k], true);
 			buf[1] = points[1];
 
 			for (int i = 0; i < points.Length - 3; i++)

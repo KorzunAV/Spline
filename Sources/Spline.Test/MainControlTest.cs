@@ -4,8 +4,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Lib.Graphic.ZedGraph;
 using Spline.Core;
+using Spline.Core.KOA;
 using ZedGraph;
 using Point = Spline.Core.Point;
 
