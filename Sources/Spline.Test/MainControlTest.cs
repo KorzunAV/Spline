@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace Spline.Test
 {
 	public partial class MainControlTest : Form
 	{
+		private List<DateItem> _set;
+
 		public MainControlTest()
 		{
 			InitializeComponent();
@@ -30,26 +33,67 @@ namespace Spline.Test
 
 			if (File.Exists(tbLoad.Text))
 			{
-				var set = Parser.GetDateItems(tbLoad.Text);
-
-				var settings = new ZedGHelper.Settings();
-				settings.Type = SymbolType.Circle;
-                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Open)), false);
-                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Close)), false);
-                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.MaxPrice)), false);
-                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.MinPrice)), false);
-                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Value)), true);
-
-                settings.GrafikColor = Color.Red;
-                settings.Type = SymbolType.Diamond;
-                var ys = BSpline.SplinePoints(set.Select(o => o.Open).ToArray());
-                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => (double)o.DateTime.Ticks).ToArray(), ys, false);
-
-                settings.GrafikColor = Color.Green;
-                settings.Type = SymbolType.Square;
-                ys = BSpline.SplinePoints(set.Select(o => o.Open).ToArray(), 10);
-                ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => (double)o.DateTime.Ticks).ToArray(), ys, false);
+				_set = Parser.GetDateItems(tbLoad.Text);
+				tbReload.Text = _set.Count.ToString();
+				Drove(_set, _set.Count);
 			}
+		}
+
+		private void Drove(List<DateItem> set, int count)
+		{
+			var settings = new ZedGHelper.Settings();
+			settings.Type = SymbolType.Circle;
+			ZedGHelper.CleanAll(ZedGraphControl,true);
+			ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Open)), false);
+			//ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Close)), false);
+			//ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.MaxPrice)), false);
+			//ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.MinPrice)), false);
+			//ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => new Point(o.DateTime.Ticks, o.Value)), true);
+
+			//settings.GrafikColor = Color.Red;
+			//settings.Type = SymbolType.Diamond;
+			//var ys = BSpline.SplinePoints(set.Select(o => o.Open).ToArray(), 60);
+			//ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => (double)o.DateTime.Ticks).ToArray(), ys, false);
+
+			//settings.GrafikColor = Color.Green;
+			//settings.Type = SymbolType.Square;
+			//ys = BSpline.SplinePoints(set.Select(o => o.Open).ToArray(), 300);
+			//ZedGHelper.Paint(ZedGraphControl, settings, set.Select(o => (double)o.DateTime.Ticks).ToArray(), ys, false);
+
+			var t = count;
+
+			settings.GrafikColor = Color.Purple;
+			settings.Type = SymbolType.Diamond;
+			var ys = BSpline.SplinePoints(set.Take(t).Select(o => o.Open).ToArray(), 60);
+			ZedGHelper.Paint(ZedGraphControl, settings, set.Take(t).Select(o => (double)o.DateTime.Ticks).ToArray(), ys, false);
+
+			settings.GrafikColor = Color.Blue;
+			settings.Type = SymbolType.Square;
+			ys = BSpline.SplinePoints(set.Take(t).Select(o => o.Open).ToArray(), 2000);
+			ZedGHelper.Paint(ZedGraphControl, settings, set.Take(t).Select(o => (double)o.DateTime.Ticks).ToArray(), ys, false);
+			ZedGraphControl.Refresh();
+		}
+
+		private void BtReloadClick(object sender, EventArgs e)
+		{
+			var t = int.Parse(tbReload.Text);
+			Drove(_set, t);
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			var t = int.Parse(tbReload.Text);
+			t--;
+			tbReload.Text = t.ToString();
+			Drove(_set, t);
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			var t = int.Parse(tbReload.Text);
+			t++;
+			tbReload.Text = t.ToString();
+			Drove(_set, t);
 		}
 	}
 }

@@ -84,7 +84,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="License-LGPL.txt" />
     <Content Include="TestData.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

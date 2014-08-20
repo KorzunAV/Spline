@@ -7,8 +7,6 @@ namespace Lib.Graphic.ZedGraph
     // http://jenyay.net/Programming/ZedGraph
     public class ZedGHelper
     {
-
-
         //public static void CreateGraph_ThreeVerticalPanes(ZedGraphControl zedGraphControl, Settings conf, List<double[]> dots)
         //{
         //    MasterPane master = z1.MasterPane;
