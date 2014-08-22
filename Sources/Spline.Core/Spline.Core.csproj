@@ -39,7 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataItem.cs" />
+    <Compile Include="KOA\AnalysisAndRecognition.cs" />
+    <Compile Include="KOA\BasicConvert.cs" />
     <Compile Include="KOA\BSpline.cs" />
+    <Compile Include="KOA\CommonFunctions.cs" />
+    <Compile Include="KOA\GroupRoad.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="KOA\KSpline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

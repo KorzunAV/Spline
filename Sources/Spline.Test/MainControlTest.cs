@@ -13,7 +13,7 @@ namespace Spline.Test
 {
 	public partial class MainControlTest : Form
 	{
-		private List<DateItem> _set;
+		private List<DataItem> _set;
 
 		public MainControlTest()
 		{
@@ -39,7 +39,7 @@ namespace Spline.Test
 			}
 		}
 
-		private void Drove(List<DateItem> set, int count)
+		private void Drove(List<DataItem> set, int count)
 		{
 			var settings = new ZedGHelper.Settings();
 			settings.Type = SymbolType.Circle;

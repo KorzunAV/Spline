@@ -2,27 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Spline.Core;
 
 namespace Spline.Test
 {
-	public struct DateItem
-	{
-		public DateTime DateTime { get; set; }
-		public double MaxPrice { get; set; }
-		public double MinPrice { get; set; }
-		public double Open { get; set; }
-		public double Close { get; set; }
-		public int Value { get; set; }
-	}
-
 	public class Parser
 	{
-		public static List<DateItem> GetDateItems(string fileName)
+		public static List<DataItem> GetDateItems(string fileName)
 		{
 			if (!File.Exists(fileName))
 				throw new FileNotFoundException(fileName);
 
-			var buf = new List<DateItem>(6048);
+			var buf = new List<DataItem>(6048);
 
 			using (var sr = new StreamReader(fileName))
 			{
@@ -36,8 +27,9 @@ namespace Spline.Test
 							throw new ArgumentNullException("Количество колонок не соответствует шаблону.");
 						
 						int k = 0;
-						var item = new DateItem();
-						item.DateTime = DateTime.Parse(string.Format("{0} {1}:00", column[k++], column[k++]));
+						var item = new DataItem();
+						item.Date = column[k++];
+						item.Time = column[k++];
 						item.MinPrice = Double.Parse(column[k++]);
 						item.MaxPrice = Double.Parse(column[k++]);
 						item.Open = Double.Parse(column[k++]);
